@@ -1,0 +1,60 @@
+{
+	"name": "cityscape",
+	"productName": "Cityscape",
+	"description": "Single-player arcade survival game",
+	"version": "2021.08.28",
+	"private": true,
+	"main": "main.js",
+	"scripts": {
+		"build": "npm test && electron-builder -lmw",
+		"build:lin": "npm test && electron-builder -l",
+		"build:mac": "npm test && electron-builder -m",
+		"build:win": "npm test && electron-builder -n",
+		"pack": "electron-builder --dir",
+		"postinstall": "electron-builder install-app-deps",
+		"start": "electron .",
+		"test": "eslint --fix .",
+		"zip": "zip -r - assets node_modules/videogame index.html game.js > ../${PWD##*/}.zip"
+	},
+	"author": "Diogo Eichert",
+	"copyright": "Copyright © 2021 Maragato マラガト",
+	"homepage": "https://maragato.itch.io/cityscape#readme",
+	"devDependencies": {
+		"electron": "^13.2.1",
+		"electron-builder": "^22.11.7",
+		"eslint": "^7.32.0",
+		"eslint-config-classic": "^1.2.1"
+	},
+	"build": {
+		"appId": "com.maragato.cityscape",
+		"files": [
+			"assets/**/*",
+			"index.html",
+			"*.js",
+			"node_modules/**/*",
+			"package.json"
+		],
+		"directories": {
+			"buildResources": "resources"
+		},
+		"publish": null,
+		"linux": {
+			"category": "Game",
+			"target": "AppImage"
+		},
+		"mac": {
+			"category": "public.app-category.games",
+			"icon": "assets/icon.icns",
+			"identity": null,
+			"target": "dmg"
+		},
+		"win": {
+			"artifactName": "${productName}-${version}.${ext}",
+			"icon": "assets/icon.ico",
+			"target": "nsis"
+		}
+	},
+	"dependencies": {
+		"core2d": "^1.23.1"
+	}
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" type="image/png" href="assets/icon.png" />
+
+		<style>
+			#assets {
+				height: 1px;
+				overflow: hidden;
+				visibility: hidden;
+				width: 1px;
+			}
+
+			body {
+				background-color: Black;
+				margin: 0;
+				overflow: hidden;
+				padding: 0;
+			}
+
+			canvas {
+				image-rendering: optimizeSpeed;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<canvas width="640" height="400"></canvas>
+		</div>
+
+		<div id="assets">
+			<img id=",Font" src="assets/font/comma.png" width="4" height="8">
+			<img id="-Font" src="assets/font/hyphen.png" width="6" height="8">
+			<img id=".Font" src="assets/font/period.png" width="3" height="8">
+			<img id="'Font" src="assets/font/apostrophe.png" width="3" height="8">
+			<img id="`Font" src="assets/font/grave.png" width="3" height="8">
+			<img id="0Font" src="assets/font/0.png" width="8" height="8">
+			<img id="1Font" src="assets/font/1.png" width="8" height="8">
+			<img id="2Font" src="assets/font/2.png" width="8" height="8">
+			<img id="3Font" src="assets/font/3.png" width="8" height="8">
+			<img id="4Font" src="assets/font/4.png" width="8" height="8">
+			<img id="5Font" src="assets/font/5.png" width="8" height="8">
+			<img id="6Font" src="assets/font/6.png" width="8" height="8">
+			<img id="7Font" src="assets/font/7.png" width="8" height="8">
+			<img id="8Font" src="assets/font/8.png" width="8" height="8">
+			<img id="9Font" src="assets/font/9.png" width="8" height="8">
+			<img id="aFont" src="assets/font/a.png" width="8" height="8">
+			<img id="bFont" src="assets/font/b.png" width="8" height="8">
+			<img id="cFont" src="assets/font/c.png" width="8" height="8">
+			<img id="dFont" src="assets/font/d.png" width="8" height="8">
+			<img id="eFont" src="assets/font/e.png" width="8" height="8">
+			<img id="fFont" src="assets/font/f.png" width="8" height="8">
+			<img id="gFont" src="assets/font/g.png" width="8" height="8">
+			<img id="hFont" src="assets/font/h.png" width="8" height="8">
+			<img id="iFont" src="assets/font/i.png" width="7" height="8">
+			<img id="jFont" src="assets/font/j.png" width="8" height="8">
+			<img id="kFont" src="assets/font/k.png" width="8" height="8">
+			<img id="lFont" src="assets/font/l.png" width="8" height="8">
+			<img id="mFont" src="assets/font/m.png" width="8" height="8">
+			<img id="nFont" src="assets/font/n.png" width="8" height="8">
+			<img id="oFont" src="assets/font/o.png" width="8" height="8">
+			<img id="pFont" src="assets/font/p.png" width="8" height="8">
+			<img id="qFont" src="assets/font/q.png" width="8" height="8">
+			<img id="rFont" src="assets/font/r.png" width="8" height="8">
+			<img id="sFont" src="assets/font/s.png" width="8" height="8">
+			<img id="tFont" src="assets/font/t.png" width="7" height="8">
+			<img id="uFont" src="assets/font/u.png" width="8" height="8">
+			<img id="vFont" src="assets/font/v.png" width="8" height="8">
+			<img id="wFont" src="assets/font/w.png" width="8" height="8">
+			<img id="xFont" src="assets/font/x.png" width="8" height="8">
+			<img id="yFont" src="assets/font/y.png" width="7" height="8">
+			<img id="zFont" src="assets/font/z.png" width="8" height="8">
+
+			<img id="logoWhite" src="assets/frames/logoWhite.png" width="590" height="68">
+			<img id="logoColor" src="assets/frames/logoColor.png" width="590" height="68">
+
+			<img id="hand" src="assets/frames/hand.png" width="16" height="8">
+
+			<img id="hen0" src="assets/frames/hen0.png" width="16" height="16">
+			<img id="hen1" src="assets/frames/hen1.png" width="16" height="16">
+			<img id="hen2" src="assets/frames/hen2.png" width="16" height="16">
+
+			<img id="feather0" src="assets/frames/feather0.png" width="8" height="8">
+			<img id="feather1" src="assets/frames/feather1.png" width="8" height="8">
+
+			<img id="corn" src="assets/frames/corn.png" width="16" height="16">
+			<img id="cornIcon" src="assets/frames/cornIcon.png" width="8" height="8">
+
+			<img id="car0" src="assets/frames/car0.png" width="16" height="16">
+			<img id="car1" src="assets/frames/car1.png" width="16" height="16">
+			<img id="car2" src="assets/frames/car2.png" width="16" height="16">
+			<img id="car3" src="assets/frames/car3.png" width="24" height="16">
+			<img id="car4" src="assets/frames/car4.png" width="32" height="16">
+			<img id="car5" src="assets/frames/car5.png" width="48" height="16">
+
+			<img id="manHole0" src="assets/frames/manHole0.png" width="16" height="16">
+			<img id="manHole1" src="assets/frames/manHole1.png" width="16" height="16">
+
+			<img id="snake0" src="assets/frames/snake0.png" width="16" height="16">
+			<img id="snake1" src="assets/frames/snake1.png" width="16" height="16">
+			<img id="snake2" src="assets/frames/snake2.png" width="16" height="16">
+			<img id="snake3" src="assets/frames/snake3.png" width="16" height="16">
+
+			<img id="title" src="assets/frames/title.png" width="128" height="32">
+
+			<img id="00" src="assets/tiles/00.png" width="16" height="16">
+			<img id="01" src="assets/tiles/01.png" width="16" height="16">
+			<img id="02" src="assets/tiles/02.png" width="16" height="16">
+			<img id="03" src="assets/tiles/03.png" width="16" height="16">
+			<img id="04" src="assets/tiles/04.png" width="16" height="16">
+			<img id="05" src="assets/tiles/05.png" width="16" height="16">
+
+			<audio id="carSound" src="assets/sounds/car.mp3"></audio>
+			<audio id="deathSound" src="assets/sounds/death.mp3"></audio>
+			<audio id="goalSound" src="assets/sounds/goal.mp3"></audio>
+			<audio id="lifeSound" src="assets/sounds/life.mp3"></audio>
+			<audio id="maragatoSound" src="assets/sounds/maragato.mp3"></audio>
+			<audio id="pauseSound" src="assets/sounds/pause.mp3"></audio>
+
+			<audio id="gameTheme" src="assets/themes/game.mp3" loop></audio>
+		</div>
+
+		<script src="node_modules/videogame/videogame.js"></script>
+		<script src="node_modules/videogame/plugin.js"></script>
+		<script src="game.js"></script>
+	</body>
+</html>
