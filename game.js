@@ -1,9 +1,9 @@
 "use strict";
 
-/* global videogame */
+/* global core2d */
 
-const { Animation, Color, Command, Frame, Scene, Sprite, Transition, Videogame } = videogame;
-const { FontSprite } = videogame.plugin;
+const { Animation, Color, Command, Frame, Scene, Sprite, Transition, Core2D } = core2d;
+const { FontSprite } = core2d.plugin;
 
 const CARS = 6;
 const CORN_TO_LIFE_UP = 8;
@@ -52,13 +52,13 @@ class BootScene extends Scene {
 	init() {
 		this.alphaIncrease = 0.01;
 		this.color = Color.RoyalBlue;
-		this.controller = Videogame.getController();
+		this.controller = Core2D.getController();
 		this.expiration = 300;
 		this.next = new TitleScene();
 		this.state = 0;
 
 		this.logoWhite = new Sprite()
-			.setImage(Videogame.image("logoWhite"))
+			.setImage(Core2D.image("logoWhite"))
 			.setCenter(this.center);
 
 		this.drape = new Sprite()
@@ -75,7 +75,7 @@ class BootScene extends Scene {
 
 		this.logoColor = new Sprite()
 			.setAlpha(0)
-			.setImage(Videogame.image("logoColor"))
+			.setImage(Core2D.image("logoColor"))
 			.setPosition(this.logoWhite);
 
 		this.add(this.logoWhite);
@@ -92,7 +92,7 @@ class BootScene extends Scene {
 		switch (this.state) {
 		case 0:
 			if (this.drape.top > this.logoWhite.bottom) {
-				Videogame.play("maragatoSound");
+				Core2D.play("maragatoSound");
 				this.drape.expire();
 				++this.state;
 			}
@@ -116,11 +116,11 @@ class BootScene extends Scene {
 class TitleScene extends Scene {
 	init() {
 		this.color = Color.Black;
-		this.controller = Videogame.getController();
+		this.controller = Core2D.getController();
 		this.loops = 0;
 		this.next = new BootScene();
 		this.build(TITLE_MAP);
-		const titleSprite = Videogame.sprite().setImage("title").setCenter(this.center);
+		const titleSprite = Core2D.sprite().setImage("title").setCenter(this.center);
 		titleSprite.y -= 8;
 		this.add(titleSprite);
 		const signFontSprite = new FontSprite("maragato 2014 - 2021").setCenter(this.center);
@@ -131,10 +131,10 @@ class TitleScene extends Scene {
 
 		const HEN = new Sprite()
 			.setAnimation(new Animation([
-				new Frame(Videogame.image("hen1", true), 6),
-				new Frame(Videogame.image("hen0", true), 6),
-				new Frame(Videogame.image("hen2", true), 6),
-				new Frame(Videogame.image("hen0", true), 7)
+				new Frame(Core2D.image("hen1", true), 6),
+				new Frame(Core2D.image("hen0", true), 6),
+				new Frame(Core2D.image("hen2", true), 6),
+				new Frame(Core2D.image("hen0", true), 7)
 			]))
 			.setBoundary(this)
 			.setRight(this.left)
@@ -167,7 +167,7 @@ class MenuScene extends Scene {
 	init() {
 		this.boost = false;
 		this.color = Color.Black;
-		this.controller = Videogame.getController();
+		this.controller = Core2D.getController();
 		this.transition = new Transition();
 		this.build(TITLE_MAP);
 		this.menuIndex = 0;
@@ -186,15 +186,15 @@ class MenuScene extends Scene {
 	}
 
 	get next() {
-		Videogame.clear();
-		Videogame.playTheme("gameTheme");
+		Core2D.clear();
+		Core2D.playTheme("gameTheme");
 		return new GameScene();
 	}
 
 	update() {
 		if (this.controller.keyPush(Command.START)) {
 			if (this.menuIndex == 0) {
-				game = Videogame.load() || new Game();
+				game = Core2D.load() || new Game();
 			} else if (this.controller.didPerform(SECRET)) {
 				const searchParams = new URLSearchParams(location.search);
 				game = new Game(searchParams.has("games") && JSON.parse(searchParams.get("games")).includes("starship"));
@@ -230,7 +230,7 @@ class Game {
 		this.lives = 2;
 
 		if (boost) {
-			Videogame.play("lifeSound");
+			Core2D.play("lifeSound");
 			this.lives *= 2;
 		}
 	}
@@ -296,10 +296,10 @@ class GameScene extends Scene {
 
 	get next() {
 		if (game.lives < 0) {
-			Videogame.save();
+			Core2D.save();
 			return new OverScene();
 		} else if (game.level > 50) {
-			Videogame.save();
+			Core2D.save();
 			return new EndingScene();
 		}
 
@@ -318,8 +318,8 @@ class GameScene extends Scene {
 class OverScene extends Scene {
 	init() {
 		this.transition = new Transition();
-		Videogame.fadeOut();
-		this.controller = Videogame.getController();
+		Core2D.fadeOut();
+		this.controller = Core2D.getController();
 		this.add(new FontSprite("game over\n\nlevel - " + game.level).setCenter(this.center));
 	}
 
@@ -378,10 +378,10 @@ class EndingScene extends Scene {
 		const HEN = new Sprite();
 
 		HEN.setAnimation(new Animation([
-			new Frame(Videogame.image("hen1", true), 6),
-			new Frame(Videogame.image("hen0", true), 6),
-			new Frame(Videogame.image("hen2", true), 6),
-			new Frame(Videogame.image("hen0", true), 7)
+			new Frame(Core2D.image("hen1", true), 6),
+			new Frame(Core2D.image("hen0", true), 6),
+			new Frame(Core2D.image("hen2", true), 6),
+			new Frame(Core2D.image("hen0", true), 7)
 		]));
 
 		HEN.setLeft(HEN.width);
@@ -390,7 +390,7 @@ class EndingScene extends Scene {
 		HEN.setSolid();
 
 		HEN.onCollision = (car) => {
-			Videogame.play("carSound");
+			Core2D.play("carSound");
 			HEN.expire();
 			car.setAccelerationX(0.01);
 			car.setMaxSpeedX(0.5);
@@ -399,9 +399,9 @@ class EndingScene extends Scene {
 		};
 
 		this.add(HEN);
-		const ID = Videogame.random(Math.min(game.level, CARS) - 1);
+		const ID = Core2D.random(Math.min(game.level, CARS) - 1);
 		const CAR = new Sprite();
-		CAR.setImage(Videogame.rotate(document.getElementById("car" + ID), 270));
+		CAR.setImage(Core2D.rotate(document.getElementById("car" + ID), 270));
 		CAR.setRight(this.right - (CAR.width * 9));
 		CAR.setTop(this.bottom - 48);
 		CAR.setSolid();
@@ -416,7 +416,7 @@ class EndingScene extends Scene {
 	}
 
 	get next() {
-		Videogame.fadeOut();
+		Core2D.fadeOut();
 		return new BootScene();
 	}
 }
@@ -424,15 +424,15 @@ class EndingScene extends Scene {
 class EndingTile extends Sprite {
 	constructor(code) {
 		super();
-		this.setImage(Videogame.rotate(document.getElementById(code), 90));
+		this.setImage(Core2D.rotate(document.getElementById(code), 90));
 	}
 }
 
 class Player extends Sprite {
 	init() {
-		this.setImage(Videogame.image("hen0"));
+		this.setImage(Core2D.image("hen0"));
 		this.addTag("player");
-		this.controller = Videogame.getController();
+		this.controller = Core2D.getController();
 		this.isRight = true;
 		this.layerIndex = 1;
 		this.setCenterX(this.scene.centerX);
@@ -441,17 +441,17 @@ class Player extends Sprite {
 		this.walking = 0;
 
 		this.animationLeft = new Animation([
-			new Frame(Videogame.image("hen1"), 4),
-			new Frame(Videogame.image("hen0"), 4),
-			new Frame(Videogame.image("hen2"), 4),
-			new Frame(Videogame.image("hen0"), 4)
+			new Frame(Core2D.image("hen1"), 4),
+			new Frame(Core2D.image("hen0"), 4),
+			new Frame(Core2D.image("hen2"), 4),
+			new Frame(Core2D.image("hen0"), 4)
 		]);
 
 		this.animationRight = new Animation([
-			new Frame(Videogame.image("hen1", true), 4),
-			new Frame(Videogame.image("hen0", true), 4),
-			new Frame(Videogame.image("hen2", true), 4),
-			new Frame(Videogame.image("hen0", true), 4)
+			new Frame(Core2D.image("hen1", true), 4),
+			new Frame(Core2D.image("hen0", true), 4),
+			new Frame(Core2D.image("hen2", true), 4),
+			new Frame(Core2D.image("hen0", true), 4)
 		]);
 	}
 
@@ -486,9 +486,9 @@ class Player extends Sprite {
 			this.setAnimation(this.animationRight);
 		} else {
 			if (this.isRight) {
-				this.setImage(Videogame.image("hen0", true));
+				this.setImage(Core2D.image("hen0", true));
 			} else {
-				this.setImage(Videogame.image("hen0"));
+				this.setImage(Core2D.image("hen0"));
 			}
 		}
 	}
@@ -522,7 +522,7 @@ class Player extends Sprite {
 		if (this.top > this.scene.bottom) {
 			++game.level;
 			this.scene.expire();
-			Videogame.save(game);
+			Core2D.save(game);
 		}
 	}
 
@@ -548,9 +548,9 @@ class Player extends Sprite {
 	}
 
 	die() {
-		Videogame.play("deathSound");
+		Core2D.play("deathSound");
 		--game.lives;
-		Videogame.save(game);
+		Core2D.save(game);
 		this.expire();
 		this.scene.add(new Feather().setAccelerationX(0.1).setLeft(this.left).setTop(this.top));
 		this.scene.add(new Feather().setAccelerationX(-0.1).setRight(this.right).setTop(this.top));
@@ -563,21 +563,21 @@ class Corn extends Sprite {
 	init() {
 		this.setImage("corn");
 		this.setBottom(this.scene.bottom - this.height);
-		this.setLeft(this.width + Videogame.random(this.scene.width - (3 * this.width)));
+		this.setLeft(this.width + Core2D.random(this.scene.width - (3 * this.width)));
 		this.setSolid();
 	}
 
 	onCollision(sprite) {
 		if (sprite.hasTag("player")) {
 			if (++game.corn > CORN_TO_LIFE_UP) {
-				Videogame.play("lifeSound");
+				Core2D.play("lifeSound");
 				game.corn = 0;
 
 				if (++game.lives > MAX_LIVES) {
 					game.lives = MAX_LIVES;
 				}
 			} else {
-				Videogame.play("goalSound");
+				Core2D.play("goalSound");
 			}
 
 			this.expire();
@@ -588,7 +588,7 @@ class Corn extends Sprite {
 class Feather extends Sprite {
 	init() {
 		this.setEssential();
-		this.setImage(Videogame.image("feather0"));
+		this.setImage(Core2D.image("feather0"));
 		this.setSpeedY(0.2);
 	}
 
@@ -603,11 +603,11 @@ class Feather extends Sprite {
 		} else if (Math.abs(this.speedX) > 1) {
 			this.setAccelerationX(- this.accelerationX);
 		} else if (Math.abs(this.speedX) < 0.5) {
-			this.setImage(Videogame.image("feather0"));
+			this.setImage(Core2D.image("feather0"));
 		} else if (this.speedX < 0) {
-			this.setImage(Videogame.image("feather1"));
+			this.setImage(Core2D.image("feather1"));
 		} else if (this.speedX > 0) {
-			this.setImage(Videogame.image("feather1", true));
+			this.setImage(Core2D.image("feather1", true));
 		}
 	}
 }
@@ -632,12 +632,12 @@ class Car extends Sprite {
 		this.setSolid();
 		this.beam = new Beam();
 		this.setBoundary(this.scene);
-		const ID = Videogame.random(Math.min(game.level, CARS) - 1);
+		const ID = Core2D.random(Math.min(game.level, CARS) - 1);
 
-		if (Videogame.random(1)) {
-			this.setImage(Videogame.image("car" + ID));
+		if (Core2D.random(1)) {
+			this.setImage(Core2D.image("car" + ID));
 			this.setRight(0);
-			this.setTop(this.height * (12 + Videogame.random(9)));
+			this.setTop(this.height * (12 + Core2D.random(9)));
 			this.setSpeedX(this.randomSpeed());
 
 			this.beam
@@ -645,9 +645,9 @@ class Car extends Sprite {
 				.setHeight(this.height)
 				.setLeft(this.right + 1);
 		} else {
-			this.setImage(Videogame.image("car" + ID, true));
+			this.setImage(Core2D.image("car" + ID, true));
 			this.setLeft(this.scene.right);
-			this.setTop(this.height * (1 + Videogame.random(9)));
+			this.setTop(this.height * (1 + Core2D.random(9)));
 			this.setSpeedX(this.randomSpeed() * -1);
 
 			this.beam
@@ -665,7 +665,7 @@ class Car extends Sprite {
 	}
 
 	offBoundary() {
-		Videogame.play("carSound");
+		Core2D.play("carSound");
 		this.expire();
 		this.scene.add(new Car());
 	}
@@ -691,7 +691,7 @@ class Car extends Sprite {
 	}
 
 	randomSpeed() {
-		return Math.min(game.level, 1 + (Videogame.random(20) / 10));
+		return Math.min(game.level, 1 + (Core2D.random(20) / 10));
 	}
 }
 
@@ -701,8 +701,8 @@ class ManHole extends Sprite {
 		this.addTag("manHole");
 		this.setImage("manHole0");
 		this.setSolid();
-		this.setTop(this.height * (1 + Videogame.random(20)));
-		this.setLeft(Videogame.random(this.scene.width - this.width));
+		this.setTop(this.height * (1 + Core2D.random(20)));
+		this.setLeft(Core2D.random(this.scene.width - this.width));
 	}
 
 	onCollision(sprite) {
@@ -722,36 +722,36 @@ class Snake extends Sprite {
 		this.setSolid();
 
 		this.animationLeft = Animation.fromImages([
-			Videogame.image("snake0"),
-			Videogame.image("snake1")
+			Core2D.image("snake0"),
+			Core2D.image("snake1")
 		], 6);
 
 		this.animationRight = Animation.fromImages([
-			Videogame.image("snake0", true),
-			Videogame.image("snake1", true)
+			Core2D.image("snake0", true),
+			Core2D.image("snake1", true)
 		], 6);
 
 		this.animationEatLeft = new Animation([
-			new Frame(Videogame.image("snake2"), 8),
-			new Frame(Videogame.image("snake3"), 0)
+			new Frame(Core2D.image("snake2"), 8),
+			new Frame(Core2D.image("snake3"), 0)
 		]);
 
 		this.animationEatRight = new Animation([
-			new Frame(Videogame.image("snake2", true), 8),
-			new Frame(Videogame.image("snake3", true), 0)
+			new Frame(Core2D.image("snake2", true), 8),
+			new Frame(Core2D.image("snake3", true), 0)
 		]);
 
-		if (Videogame.random(1)) {
+		if (Core2D.random(1)) {
 			this.setAnimation(this.animationRight);
 			this.setRight(0);
-			this.setSpeedX((Videogame.random(2) + 8) / 10);
+			this.setSpeedX((Core2D.random(2) + 8) / 10);
 		} else {
 			this.setAnimation(this.animationLeft);
 			this.setLeft(this.scene.right);
-			this.setSpeedX(- (Videogame.random(2) + 8) / 10);
+			this.setSpeedX(- (Core2D.random(2) + 8) / 10);
 		}
 
-		if (Videogame.random(2) == 1) {
+		if (Core2D.random(2) == 1) {
 			this.setTop(this.height * 11);
 		} else {
 			this.setTop(this.height * 22);
@@ -774,6 +774,6 @@ class Snake extends Sprite {
 	}
 }
 
-Videogame.setName("Cityscape");
-Videogame.setFrameTime(20);
-Videogame.init(new BootScene());
+Core2D.setName("Cityscape");
+Core2D.setFrameTime(20);
+Core2D.init(new BootScene());

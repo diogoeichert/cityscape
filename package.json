@@ -12,9 +12,10 @@
 		"build:win": "npm test && electron-builder -n",
 		"pack": "electron-builder --dir",
 		"postinstall": "electron-builder install-app-deps",
+		"prezip": "npm install",
 		"start": "electron .",
 		"test": "eslint --fix .",
-		"zip": "zip -r - assets node_modules/videogame index.html game.js > ../${PWD##*/}.zip"
+		"zip": "zip -r - assets node_modules/core2d index.html game.js > ../${PWD##*/}.zip"
 	},
 	"author": "Diogo Eichert",
 	"copyright": "Copyright © 2021 Maragato マラガト",
