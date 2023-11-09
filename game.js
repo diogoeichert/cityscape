@@ -123,7 +123,7 @@ class TitleScene extends Scene {
 		const titleSprite = Core2D.sprite().setImage("title").setCenter(this.center);
 		titleSprite.y -= 8;
 		this.add(titleSprite);
-		const signFontSprite = new FontSprite("maragato 2014 - 2021").setCenter(this.center);
+		const signFontSprite = new FontSprite("maragato 2014").setCenter(this.center);
 		signFontSprite.y += signFontSprite.height * 2;
 		this.add(signFontSprite);
 		this.instructionSprite = new FontSprite("press enter or push start").setBottom(this.bottom - 16).setCenterX(this.centerX);
