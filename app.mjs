@@ -1,14 +1,14 @@
 "use strict";
 
-import { Animation } from "core2d/src/Animation.mjs";
-import { Color } from "core2d/src/Color.mjs";
-import { Command } from "core2d/src/Command.mjs";
-import { Core2D } from "core2d/src/Core2D.mjs";
-import { Frame } from "core2d/src/Frame.mjs";
-import { Scene } from "core2d/src/Scene.mjs";
-import { Sprite } from "core2d/src/Sprite.mjs";
-import { Transition } from "core2d/src/Transition.mjs";
-import { FontSprite } from "core2d/src/plugin/FontSprite.mjs";
+import { Animation } from "./node_modules/core2d/src/Animation.mjs";
+import { Color } from "./node_modules/core2d/src/Color.mjs";
+import { Command } from "./node_modules/core2d/src/Command.mjs";
+import { Core2D } from "./node_modules/core2d/src/Core2D.mjs";
+import { Frame } from "./node_modules/core2d/src/Frame.mjs";
+import { Scene } from "./node_modules/core2d/src/Scene.mjs";
+import { Sprite } from "./node_modules/core2d/src/Sprite.mjs";
+import { Transition } from "./node_modules/core2d/src/Transition.mjs";
+import { FontSprite } from "./node_modules/core2d/src/plugin/FontSprite.mjs";
 
 const CARS = 6;
 const CORN_TO_LIFE_UP = 8;
