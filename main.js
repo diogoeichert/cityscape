@@ -3,13 +3,15 @@ const os = require("os");
 const path = require("path");
 const { app, BrowserWindow, Menu } = require("electron");
 
+const HOMEDIR = ".maragato";
+
 const WINDOW_SIZE = {
 	width: 640,
 	height: 400,
 };
 
 function checkApps() {
-	const directory = path.join(os.homedir(), ".maragato");
+	const directory = path.join(os.homedir(), HOMEDIR);
 	fs.mkdirSync(directory, { recursive: true });
 	fs.writeFileSync(path.resolve(directory, app.name.toLowerCase().split(" ").join("").split(".").join("-")), "");
 	return fs.readdirSync(directory);
@@ -21,6 +23,7 @@ function createWindow(apps) {
 		height: WINDOW_SIZE.height,
 	});
 
+	// browserWindow.webContents.openDevTools(); // for debugging
 	browserWindow.loadFile("index.html", {query: {apps: JSON.stringify(apps)}});
 }
 

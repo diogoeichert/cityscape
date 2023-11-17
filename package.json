@@ -32,6 +32,7 @@
 			"assets/**/*",
 			"index.html",
 			"*.js",
+			"*.mjs",
 			"node_modules/**/*",
 			"package.json"
 		],
