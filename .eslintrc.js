@@ -1,3 +1,7 @@
 module.exports = {
-	"extends": "classic"
+	"extends": "classic",
+
+	"parserOptions": {
+		"sourceType": "module",
+	},
 };
