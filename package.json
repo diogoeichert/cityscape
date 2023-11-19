@@ -2,7 +2,7 @@
 	"name": "cityscape",
 	"productName": "Cityscape",
 	"description": "Single-player arcade survival game",
-	"version": "2021.08.28",
+	"version": "2023.11.19",
 	"private": true,
 	"main": "main.js",
 	"scripts": {
