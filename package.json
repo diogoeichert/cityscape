@@ -10,6 +10,7 @@
 		"build:lin": "npm test && electron-builder -l",
 		"build:mac": "npm test && electron-builder -m",
 		"build:win": "npm test && electron-builder -n",
+		"gh-pages": "git pull --rebase && npm run zip && cp dist/${PWD##*/}.zip /tmp && git checkout gh-pages && rm -rf ./* && unzip /tmp/${PWD##*/}.zip && git add . && git commit -am 'Deploy to gh-pages' && git pull --rebase && git push ; rm -f /tmp/${PWD##*/}.zip ; git checkout -",
 		"pack": "electron-builder --dir",
 		"postinstall": "electron-builder install-app-deps",
 		"prezip": "npm install",
